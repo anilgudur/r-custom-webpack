@@ -7,6 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    chunkFilename: "[id].js",
     publicPath: ""
   },
   resolve: {
@@ -28,10 +29,10 @@ module.exports = {
             importLoaders: 1,
             loader: 'css-loader',
             // Below setting not needed as in latest React JS it is allowing
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
-            }
+            // options: {
+            //   modules: true,
+            //   localIdentName: '[name]__[local]__[hash:base64:5]'
+            // }
           },
           {
             loader: 'postcss-loader',
