@@ -1,29 +1,34 @@
-import React, { Component, Suspense } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react"; // Suspense
+import { Link, Route } from "react-router-dom";
 import Users from "./containers/Users";
-import Pizza from "./containers/Pizza";
+//import Pizza from "./containers/Pizza";
+import asyncComponent from "./hoc/asyncComponent";
 
-const AsyncPizza = React.lazy(() => import("./containers/Pizza"));
+//const AsyncPizza = React.lazy(() => import("./containers/Pizza"));
+const AsyncPizza = asyncComponent(() => {
+  return import("./containers/Pizza.js");
+});
 
 class App extends Component {
   render() {
     return (
       <div>
         <div>
-          <Link to="/">Users</Link> | 
-          <Link to="/pizza">Pizza</Link>
+          <Link to='/'>Users</Link> | <Link to='/pizza'>Pizza</Link>
         </div>
         <div>
-          <Route path="/" exact component={Users} />
-          <Route 
-            path="/pizza" 
-            exact 
+          <Route path='/' exact component={Users} />
+          {/*<Route
+            path='/pizza'
+            exact
             render={() => (
               <Suspense fallback={<div>Loading...</div>}>
                 <AsyncPizza />
               </Suspense>
             )}
-           />
+          />
+          */}
+          <Route path='/pizza' component={AsyncPizza} />
         </div>
       </div>
     );
